@@ -1,0 +1,6 @@
+- hosts: test
+  remote_user: ubuntu
+  become: yes
+  roles: 
+  - start
+  - botjamin

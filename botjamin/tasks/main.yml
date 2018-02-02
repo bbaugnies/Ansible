@@ -1,0 +1,40 @@
+- name: install nodejs
+  package: name=nodejs state=present
+
+- name: install npm
+  package: name=npm state=present
+
+- name: install fb api
+  become: yes
+  become_user: ubuntu
+  npm: 
+    name: facebook-chat-api
+    path: /home/ubuntu/node_modules
+  
+- name: clone git
+  become: yes
+  become_user: ubuntu
+  git:
+    repo: 'https://github.com/bbaugnies/Misc.git'
+    dest: /home/ubuntu/git/Misc
+
+- name: botjamin script
+  copy:
+    src: botjamin_pwd.txt
+    dest: /home/ubuntu/pwd.txt
+    owner: ubuntu
+    group: ubuntu
+
+- name: launch script
+  copy:
+    src: botjamin.sh
+    dest: /home/ubuntu/botjamin.sh
+    owner: ubuntu
+    group: ubuntu
+    mode: 0777
+
+- name: botjamin cronjob
+  lineinfile:
+    regexp: '.*botjamin.*'
+    line: '*  *    * * *   ubuntu  /usr/bin/flock -n /var/tmp/botjamin.lck /home/ubuntu/botjamin.sh'
+    path: /etc/crontab
