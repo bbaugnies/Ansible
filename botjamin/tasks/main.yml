@@ -33,8 +33,22 @@
     group: ubuntu
     mode: 0777
 
+- name: git pull script
+  copy:
+    src: git_pull.sh
+    dest: /home/ubuntu/git_pull.sh
+    owner: ubuntu
+    group: ubuntu
+    mode: 0777
+
 - name: botjamin cronjob
   lineinfile:
     regexp: '.*botjamin.*'
     line: '*  *    * * *   ubuntu  /usr/bin/flock -n /var/tmp/botjamin.lck /home/ubuntu/botjamin.sh'
+    path: /etc/crontab
+
+- name: git_pull cronjob
+  lineinfile:
+    regexp: '.*git_pull.*'
+    line: '42  *   * * *   ubuntu  /home/ubuntu/git_pull.sh'
     path: /etc/crontab
