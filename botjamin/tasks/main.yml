@@ -8,7 +8,7 @@
   become: yes
   become_user: ubuntu
   npm: 
-    name: facebook-chat-api
+    name: Schmavery/facebook-chat-api
     path: /home/ubuntu/node_modules
   
 - name: clone git
@@ -44,7 +44,7 @@
 - name: botjamin cronjob
   lineinfile:
     regexp: '.*botjamin.*'
-    line: '*  *    * * *   ubuntu  /usr/bin/flock -n /var/tmp/botjamin.lck /home/ubuntu/botjamin.sh'
+    line: '*  *    * * *   ubuntu  timeout -s 9 86400/usr/bin/flock -n /var/tmp/botjamin.lck /home/ubuntu/botjamin.sh'
     path: /etc/crontab
 
 - name: git_pull cronjob
