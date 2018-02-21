@@ -11,12 +11,19 @@
     name: Schmavery/facebook-chat-api
     path: /home/ubuntu/node_modules
   
-- name: clone git
+- name: clone git botjamin
   become: yes
   become_user: ubuntu
   git:
     repo: 'https://github.com/bbaugnies/Misc.git'
     dest: /home/ubuntu/git/Misc
+  
+- name: clone git sim
+  become: yes
+  become_user: ubuntu
+  git:
+    repo: 'https://github.com/bbaugnies/Warhammer-8th-Simulator.git'
+    dest: /home/ubuntu/git/Warhammer-8th-Simulator
 
 - name: botjamin script
   copy:
