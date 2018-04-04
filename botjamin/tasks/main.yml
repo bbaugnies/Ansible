@@ -10,6 +10,16 @@
   npm: 
     name: Schmavery/facebook-chat-api
     path: /home/ubuntu/node_modules
+
+- name: install n
+  become: yes
+  npm:
+    name: n
+    global: yes
+
+- name: get latest node
+  become: yes
+  command: n stable
   
 - name: clone git botjamin
   become: yes
@@ -51,7 +61,7 @@
 - name: botjamin cronjob
   lineinfile:
     regexp: '.*botjamin.*'
-    line: '*  *    * * *   ubuntu  timeout -s 9 86400/usr/bin/flock -n /var/tmp/botjamin.lck /home/ubuntu/botjamin.sh'
+    line: '*  *    * * *   ubuntu  timeout -s 9 86400 /usr/bin/flock -n /var/tmp/botjamin.lck /home/ubuntu/botjamin.sh'
     path: /etc/crontab
 
 - name: git_pull cronjob
