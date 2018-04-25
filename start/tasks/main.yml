@@ -1,27 +1,17 @@
 - name: update package cache
   package: update_cache=yes cache_valid_time=3600
   
-- name: security updates cron
-  copy:
-    src: apt-security-updates_cron
-    dest: /etc/cron.weekly/apt-security-updates
-    owner: root
-    group: root
-    mode: 0751
-    
-- name: security updates log
-  copy:
-    src: apt-security-updates_log
-    dest: /etc/logrotate.d/apt-security-updates
-    owner: root
-    group: root
-    mode: 0644
-
 - name: enable cron log
   lineinfile:
     path: /etc/rsyslog.d/50-default.conf
-    regexp: 'cron.*'
+    regexp: '^cron.*'
     line: 'cron.*                          /var/log/cron.log'
+
+- name: remove cron from syslog
+  lineinfile:
+    path: /etc/rsyslog.d/50-default.conf
+    regexp: '^\*\.\*;auth.*'
+    line: '*.*;cron,auth,authpriv.none     -/var/log/syslog'
   notify:
     - restart rsyslog
     - restart cron

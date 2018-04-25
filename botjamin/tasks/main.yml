@@ -35,14 +35,14 @@
     repo: 'https://github.com/bbaugnies/Warhammer-8th-Simulator.git'
     dest: /home/ubuntu/git/Warhammer-8th-Simulator
 
-- name: botjamin script
+- name: copy botjamin pwd 
   copy:
     src: botjamin_pwd.txt
     dest: /home/ubuntu/pwd.txt
     owner: ubuntu
     group: ubuntu
 
-- name: launch script
+- name: copy launch script
   copy:
     src: botjamin.sh
     dest: /home/ubuntu/botjamin.sh
@@ -50,7 +50,7 @@
     group: ubuntu
     mode: 0777
 
-- name: git pull script
+- name: copy git pull script
   copy:
     src: git_pull.sh
     dest: /home/ubuntu/git_pull.sh
@@ -58,14 +58,22 @@
     group: ubuntu
     mode: 0777
 
+- name: copy logrotate files
+  copy:
+    src: botlogs
+    dest: /etc/logrotate.d/botlogs
+    owner: root
+    group: root
+    mode: 0644
+
 - name: botjamin cronjob
   lineinfile:
     regexp: '.*botjamin.*'
-    line: '*  *    * * *   ubuntu  timeout -s 9 86400 /usr/bin/flock -n /var/tmp/botjamin.lck /home/ubuntu/botjamin.sh'
+    line: '*  *    * * *   ubuntu  timeout -s 9 86400 /usr/bin/flock -n /var/tmp/botjamin.lck /home/ubuntu/botjamin.sh >> /home/ubuntu/botjamin.log 2>> /home/ubuntu/botjamin_err.log'
     path: /etc/crontab
 
 - name: git_pull cronjob
   lineinfile:
     regexp: '.*git_pull.*'
-    line: '42  *   * * *   ubuntu  /home/ubuntu/git_pull.sh'
+    line: '42  *   * * *   ubuntu  /home/ubuntu/git_pull.sh >> /home/ubuntu/git.log 2>&1'
     path: /etc/crontab

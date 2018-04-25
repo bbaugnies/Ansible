@@ -1,0 +1,14 @@
+/home/ubuntu/botjamin.log
+/home/ubuntu/botjamin_err.log
+/home/ubuntu/git.log
+{
+	rotate 4
+	weekly
+	missingok
+	compress
+	delaycompress
+	sharedscripts
+	postrotate
+		invoke-rc.d rsyslog rotate > /dev/null
+	endscript
+}
