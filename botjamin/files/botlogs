@@ -1,10 +1,10 @@
-/home/ubuntu/botjamin.log
-/home/ubuntu/botjamin_err.log
-/home/ubuntu/git.log
+/home/ubuntu/botlogs/botjamin.log
+/home/ubuntu/botlogs/botjamin_err.log
+/home/ubuntu/botlogs/git.log
 {
 	rotate 4
 	weekly
-	missingok
+
 	compress
 	delaycompress
 	sharedscripts

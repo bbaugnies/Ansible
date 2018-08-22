@@ -10,12 +10,21 @@
   npm: 
     name: Schmavery/facebook-chat-api
     path: /home/ubuntu/node_modules
+    state: present
 
 - name: install n
   become: yes
   npm:
     name: n
     global: yes
+    
+- name: install unirest
+  become: yes
+  become_user: ubuntu
+  npm:
+    name: unirest
+    path: /home/ubuntu/node_modules
+    state: present
 
 - name: get latest node
   become: yes
@@ -69,11 +78,11 @@
 - name: botjamin cronjob
   lineinfile:
     regexp: '.*botjamin.*'
-    line: '*  *    * * *   ubuntu  timeout -s 9 86400 /usr/bin/flock -n /var/tmp/botjamin.lck /home/ubuntu/botjamin.sh >> /home/ubuntu/botjamin.log 2>> /home/ubuntu/botjamin_err.log'
+    line: '*  *    * * *   ubuntu  timeout -s 9 86400 /usr/bin/flock -n /var/tmp/botjamin.lck /home/ubuntu/botjamin.sh >> /home/ubuntu/botlogs/botjamin.log 2>> /home/ubuntu/botlogs/botjamin_err.log'
     path: /etc/crontab
 
 - name: git_pull cronjob
   lineinfile:
     regexp: '.*git_pull.*'
-    line: '42  *   * * *   ubuntu  /home/ubuntu/git_pull.sh >> /home/ubuntu/git.log 2>&1'
+    line: '42  *   * * *   ubuntu  /home/ubuntu/git_pull.sh >> /home/ubuntu/botlogs/git.log 2>&1'
     path: /etc/crontab
