@@ -1,3 +1,3 @@
 #!/bin/bash
 
-js /home/ubuntu/git/Misc/Botjamin/botjamin.js
+node /home/ubuntu/git/Misc/Botjamin/botjamin.js
