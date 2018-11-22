@@ -1,8 +1,35 @@
+# install xorg
+# install openbox
+
+
 - name: install nodejs
   package: name=nodejs state=present
 
 - name: install npm
   package: name=npm state=present
+
+- name: install pip
+  command: python -mpip install -U pip
+
+- name: install pkg-config
+  package:
+    name: pkg-config
+    state: present
+
+- name: install freetype
+  package:
+    name: libfreetype6-dev
+    state: present
+
+- name: install libpng
+  package:
+    name: libpng12-dev
+    state: present
+
+- name: install matplotlib
+  package:
+    name: python-matplotlib
+    state: present
 
 - name: install fb api
   become: yes
@@ -10,7 +37,12 @@
   npm: 
     name: Schmavery/facebook-chat-api
     path: /home/ubuntu/node_modules
-  
+
+- name: install tkinter
+  package:
+    name: python-tk
+    state: present
+ 
 - name: clone git botjamin
   become: yes
   become_user: ubuntu
