@@ -1,5 +1,4 @@
 /home/ubuntu/botlogs/botjamin.log
-/home/ubuntu/botlogs/botjamin_err.log
 /home/ubuntu/botlogs/git.log
 {
 	rotate 4
